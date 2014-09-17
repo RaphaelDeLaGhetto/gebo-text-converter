@@ -309,18 +309,18 @@ var doc = require('..'),
  */
 exports.getFileType = {
 
-//    'Return the text behind the last period in a string': function(test) {
-//        test.expect(1);
-//        doc.getFileType('/some/../weird.looking/path/somefile.xyz').
-//            then(function(type) {
-//                test.equal(type, 'xyz');
-//                test.done();
-//              }).
-//            catch(function(err) {
-//                test.ok(false, err);
-//                test.done();
-//              });
-//    },
+    'Catch error when file doesn\'t exist': function(test) {
+        test.expect(1);
+        doc.getFileType('/some/../weird.looking/path/somefile.xyz').
+            then(function(type) {
+                test.ok(false, 'Should throw error');
+                test.done();
+              }).
+            catch(function(err) {
+                test.ok(true, err);
+                test.done();
+              });
+    },
 
     'Return \'doc\' when given a DOC': function(test) {
         test.expect(1);
