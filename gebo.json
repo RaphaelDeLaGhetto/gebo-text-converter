@@ -1,0 +1,10 @@
+{
+    "text-converter": {
+        "pdf":"pdftotext %s -",
+        "doc":"antiword %s",
+        "docx":"python -B /home/resner/live/resner-agent/python/docx2txt.py %s",
+        "odt":"odt2txt --width=-1 %s",
+        "rtf":"python -B /home/resner/live/resner-agent/python/rtf2txt.py %s",
+        "default":"cat %s"
+    }
+}
