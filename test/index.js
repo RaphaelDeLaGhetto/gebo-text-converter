@@ -373,3 +373,52 @@ exports.getFileType = {
     },
 };
 
+/**
+ * resolveMimeType
+ */
+exports.resolveMimeType = {
+
+    'Return "doc" when given "application/msword"': function(test) {
+        test.expect(1);
+        test.equal(doc.resolveMimeType('application/msword'), 'doc');
+        test.done();
+    },
+
+    'Return "docx" when given "application/zip" or "application/vnd.openxmlformats-officedocument.wordprocessingml.document"': function(test) {
+        test.expect(2);
+        test.equal(doc.resolveMimeType('application/zip'), 'docx');
+        test.equal(doc.resolveMimeType('application/vnd.openxmlformats-officedocument.wordprocessingml.document'), 'docx');
+        test.done();
+    },
+
+    'Return "odt" when given "application/vnd.oasis.opendocument.text"': function(test) {
+        test.expect(1);
+        test.equal(doc.resolveMimeType('application/vnd.oasis.opendocument.text'), 'odt');
+        test.done();
+    },
+
+    'Return "pdf" when given "application/pdf"': function(test) {
+        test.expect(1);
+        test.equal(doc.resolveMimeType('application/pdf'), 'pdf');
+        test.done();
+    },
+
+    'Return "rtf" when given "text/rtf" or "application/rtf"': function(test) {
+        test.expect(2);
+        test.equal(doc.resolveMimeType('text/rtf'), 'rtf');
+        test.equal(doc.resolveMimeType('application/rtf'), 'rtf');
+        test.done();
+    },
+
+    'Return "txt" when given "text/plain"': function(test) {
+        test.expect(1);
+        test.equal(doc.resolveMimeType('text/plain'), 'txt');
+        test.done();
+    },
+
+    'Return null when given an unrecognized type': function(test) {
+        test.expect(1);
+        test.equal(doc.resolveMimeType('unrecognized/type'), null);
+        test.done();
+    },
+};

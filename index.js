@@ -1,6 +1,7 @@
 'use strict';
 
 var exec = require('child_process').exec,
+    mime = require('mime'),
     nconf = require('nconf'),
     sprintf = require('sprintf-js').sprintf,
     q = require('q'),
@@ -66,41 +67,55 @@ module.exports = function() {
      */
     function _getFileType(path) {
         var deferred = q.defer();
+
         exec('file --mime-type ' + path, function(err, stdout, stderr) {
-            if (err) {
-              deferred.reject(err);
+          if (err) {
+            deferred.reject(err);
+          }
+          else {
+            var mimeType = stdout.split(' ').pop().trim();
+            var type = _resolveMimeType(mimeType);
+            if (type) {
+              deferred.resolve(type);
             }
             else {
-              var type = stdout.split(' ').pop().trim();
-              switch(type) {
-                case 'application/msword':
-                    deferred.resolve('doc');
-                    break;
-                case 'application/zip':
-                case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-                    deferred.resolve('docx');
-                    break;
-                case 'application/vnd.oasis.opendocument.text':
-                    deferred.resolve('odt');
-                    break;
-                case 'application/pdf': 
-                    deferred.resolve('pdf');
-                    break;
-                case 'text/rtf': 
-                case 'application/rtf': 
-                    deferred.resolve('rtf');
-                    break;
-                case 'text/plain': 
-                    deferred.resolve('txt');
-                    break;
-                default:
-                    deferred.resolve(null);
-              }
+              deferred.resolve(_resolveMimeType(mime.lookup(path)));
             }
-          });
+          }
+        });
         return deferred.promise;
       };
     exports.getFileType = _getFileType; 
 
+    /**
+     * Just needed to DRY out my code after deciding on a two-step 
+     * mime-determining scheme in _getFileType
+     *
+     * @param string
+     *
+     * @return string
+     */
+    function _resolveMimeType(mimeType) {
+        switch(mimeType) {
+            case 'application/msword':
+                return 'doc';
+            case 'application/zip':
+            case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+                return 'docx';
+            case 'application/vnd.oasis.opendocument.text':
+                return 'odt';
+            case 'application/pdf': 
+                return 'pdf';
+            case 'text/rtf': 
+            case 'application/rtf': 
+                return 'rtf';
+            case 'text/plain': 
+                return 'txt';
+            default:
+                return;
+        }
+      };
+    exports.resolveMimeType = _resolveMimeType; 
+    
     return exports;
   }();
