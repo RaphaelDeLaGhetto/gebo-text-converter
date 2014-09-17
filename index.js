@@ -1,9 +1,57 @@
 'use strict';
 
 var exec = require('child_process').exec,
-    q = require('q');
+    nconf = require('nconf'),
+    sprintf = require('sprintf-js').sprintf,
+    q = require('q'),
+    winston = require('winston');
 
 module.exports = function() {
+
+    // Load configuration
+    nconf.file('./gebo.json');
+    var _config = nconf.get('textConverter');
+    var _logLevel = nconf.get('logLevel');
+    var logger = new (winston.Logger)({ transports: [ new (winston.transports.Console)({ colorize: true }) ] });
+
+    /**
+     * Take a file and return plain text
+     *
+     * @param string
+     *
+     * @return promise
+     */
+    function _convert(path, options) {
+        var deferred = q.defer();
+
+        if (!options) {
+          options = {};
+        }
+
+        _getFileType(path).
+          then(function(type) {
+                var command = sprintf(_config[type], path);
+                if (!command) {
+                  command = sprintf(_config.default, path);
+                }
+
+                exec(command, options, function(err, stdout, stderr) {
+                    if (err) {
+                      if (logLevel === 'trace') logger.error('gebo-text-converter', err);                    
+                      deferred.reject(err);
+                    }
+                    if (stderr) {
+                      if (logLevel === 'trace') logger.warn('gebo-text-converter', stderr);                    
+                    }
+                    deferred.resolve(stdout);
+                  });
+            }).
+          catch(function(err) {
+
+            });
+        return deferred.promise;
+      };
+    exports.convert = _convert; 
 
     /**
      * Determine this file's type so as to know which 
