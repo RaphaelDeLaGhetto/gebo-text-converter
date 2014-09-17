@@ -35,21 +35,21 @@ module.exports = function() {
                   command = sprintf(_config.default, path);
                 }
 
-                if (logLevel === 'trace') logger.info('gebo-text-converter command:', command);                    
+                if (_logLevel === 'trace') logger.info('gebo-text-converter command:', command);                    
 
                 exec(command, options, function(err, stdout, stderr) {
                     if (err) {
-                      if (logLevel === 'trace') logger.error('gebo-text-converter', err);                    
+                      if (_logLevel === 'trace') logger.error('gebo-text-converter', err);                    
                       deferred.reject(err);
                     }
                     else {
-                      if (stderr && logLevel === 'trace') logger.warn('gebo-text-converter', stderr);                    
+                      if (stderr && _logLevel === 'trace') logger.warn('gebo-text-converter', stderr);                    
                       deferred.resolve(stdout);
                     }
                   });
             }).
           catch(function(err) {
-                if (logLevel === 'trace') logger.error('gebo-text-converter _getFileType:', err);                    
+                if (_logLevel === 'trace') logger.error('gebo-text-converter _getFileType:', err);                    
                 deferred.reject(err);
             });
         return deferred.promise;
