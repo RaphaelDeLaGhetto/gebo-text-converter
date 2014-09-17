@@ -1,0 +1,25 @@
+{
+  "name": "gebo-text-converter",
+  "version": "0.0.0",
+  "description": "A gebo-server module for document-to-text conversions",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodeunit test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RaphaelDeLaGhetto/gebo-text-converter.git"
+  },
+  "keywords": [
+    "gebo",
+    "text",
+    "converter",
+    "nlp"
+  ],
+  "author": "Daniel Bidulock",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RaphaelDeLaGhetto/gebo-text-converter/issues"
+  },
+  "homepage": "https://github.com/RaphaelDeLaGhetto/gebo-text-converter"
+}
