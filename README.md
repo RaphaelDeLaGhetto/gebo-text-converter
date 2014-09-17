@@ -17,6 +17,25 @@ sudo apt-get install odt2txt
 sudo apt-get install catdoc
 ```
 
+# Install
+
+```
+npm install gebo-text-converter
+```
+
+# Usage
+
+```
+var converter = require('gebo-text-converter');
+
+converter.convert('/path/to/some/file').
+    then(text) {
+        console.log(text); 
+      }).
+    catch(err) {
+        // Something went wrong 
+      });
+```
 
 # Licence
 
