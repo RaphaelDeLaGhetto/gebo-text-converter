@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/RaphaelDeLaGhetto/gebo-text-converter/issues"
   },
-  "homepage": "https://github.com/RaphaelDeLaGhetto/gebo-text-converter"
+  "homepage": "https://github.com/RaphaelDeLaGhetto/gebo-text-converter",
+  "dependencies": {
+    "q": "^1.0.1"
+  }
 }
