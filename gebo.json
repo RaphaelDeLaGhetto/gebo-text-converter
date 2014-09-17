@@ -6,5 +6,6 @@
         "odt":"odt2txt --width=-1 %s",
         "rtf":"unrtf --text --nopict %s | awk 'NR == 1, /-----------------/ { next } { print }'",
         "default":"cat %s"
-    }
+    },
+    "logLevel":"trace"
 }
