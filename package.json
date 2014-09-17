@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/RaphaelDeLaGhetto/gebo-text-converter",
   "dependencies": {
+    "mime": "^1.2.11",
     "nconf": "^0.6.9",
     "q": "^1.0.1",
     "sprintf-js": "0.0.7",
