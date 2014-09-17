@@ -14,7 +14,7 @@ sudo apt-get install poppler-utils
 sudo apt-get install docx2txt
 sudo apt-get install unrtf
 sudo apt-get install odt2txt
-sudo apt-get install antiword
+sudo apt-get install catdoc
 ```
 
 
